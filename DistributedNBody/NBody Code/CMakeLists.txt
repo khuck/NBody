@@ -3,10 +3,7 @@ project(Octree CXX)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(HPX_ROOT "$WORK/zahra/hpx")
-set(HPX_DIR "${HPX_ROOT}/lib/cmake/HPX")
-
-find_package(HPX)
+find_package(HPX REQUIRED)
 
 include_directories(${HPX_INCLUDE_DIR})
 link_directories(${HPX_LIBRARY_DIR})

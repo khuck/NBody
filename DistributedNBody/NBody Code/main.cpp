@@ -386,12 +386,12 @@ struct stepper_server : hpx::components::simple_component_base<stepper_server>
     stepper_server() {}
 
     stepper_server(std::size_t nl)
-            : Left_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(), -1, nl))),
-              Right_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(), +1, nl))),
-              Back_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(),-2, nl))),
-              Front_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(),+2, nl))),
-              Up_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(),-4, nl))),
-              Down_(hpx::find_id_from_basename(stepper_basename, idx(hpx::get_locality_id(),+4, nl))),
+            : Left_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(), -1, nl))),
+              Right_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(), +1, nl))),
+              Back_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(),-2, nl))),
+              Front_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(),+2, nl))),
+              Up_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(),-4, nl))),
+              Down_(hpx::find_from_basename(stepper_basename, idx(hpx::get_locality_id(),+4, nl))),
               Parent_(6),
               U_(6),
               To_B_(1),
@@ -485,7 +485,7 @@ struct stepper : hpx::components::client_base<stepper, stepper_server>
     stepper()
             : base_type(hpx::new_<stepper_server>(hpx::find_here(), hpx::get_num_localities_sync()))
     {
-        hpx::register_id_with_basename(stepper_basename, get_gid(), hpx::get_locality_id());
+        hpx::register_with_basename(stepper_basename, get_gid(), hpx::get_locality_id());
     }
 
     stepper(hpx::future<hpx::id_type> && id)
