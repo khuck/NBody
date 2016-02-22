@@ -820,7 +820,7 @@ partition stepper_server::compute_position(partition const &ce0,
                                            partition const &Left, partition const &Right,
                                            partition const &Up, partition const &Down)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     using hpx::util::unwrapped;
 
     hpx::shared_future<partition_data> current_bodies = ce0.get_data(partition_server::cell0);
@@ -909,7 +909,7 @@ partition stepper_server::compute_position(partition const &ce0,
 /////////////////////////////////////////////////////////////////////////////////
 partition stepper_server::changed_members( partition const& ce0, partition const& From_N, int cell_ID, int dim, int dir)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     using hpx::util::unwrapped;
 
     hpx::shared_future<partition_data> current_bodies = ce0.get_data(partition_server::cell0);
@@ -972,7 +972,7 @@ partition stepper_server::changed_members( partition const& ce0, partition const
 
 partition stepper_server::Non_Members(partition const& To_N_total, partition const & To_N)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     using hpx::util::unwrapped;
 
     hpx::shared_future<partition_data> current_bodies = To_N_total.get_data(partition_server::cell0);
@@ -1022,7 +1022,7 @@ partition stepper_server::Non_Members(partition const& To_N_total, partition con
 
 partition stepper_server::New_Members(partition const& ce0, partition const& From_N, int ID)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     using hpx::util::unwrapped;
 
     hpx::shared_future<partition_data> current_bodies = From_N.get_data(partition_server::cell0);
@@ -1065,7 +1065,7 @@ partition stepper_server::New_Members(partition const& ce0, partition const& Fro
 //////////////////////////////////////////////////////////////////////////////
 
 partition stepper_server::copy_mem(partition const & ce0){
-    using hpx::lcos::local::dataflow; 
+    using hpx::dataflow; 
     using hpx::util::unwrapped;
 
     hpx::shared_future<partition_data> current_bodies = ce0.get_data(partition_server::cell0);
@@ -1095,7 +1095,7 @@ partition stepper_server::copy_mem(partition const & ce0){
 
 stepper_server::space stepper_server::do_work(std::size_t np, std::size_t nl)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     using hpx::util::unwrapped;
 
     std::size_t local_np=np/nl;
@@ -1189,7 +1189,7 @@ HPX_REGISTER_GATHER(stepper_server::space, stepper_server_space_gatherer);
 ///////////////////////////////////////////////////////////////////////////////
 int hpx_main(boost::program_options::variables_map& vm)
 {
-    using hpx::lcos::local::dataflow;
+    using hpx::dataflow;
     
     create_Octree();    
 
@@ -1222,7 +1222,7 @@ int hpx_main(boost::program_options::variables_map& vm)
                 s[i].get_data(partition_server::cell0).wait(); 
         }            
             boost::uint64_t elapsed=hpx::util::high_resolution_clock::now()-t;
-            std::cout<<(boost::format("%.14g")%(elapsed/ 1e9)) <<std::flush;
+            std::cout<<(boost::format("%.14g")%(elapsed/ 1e9)) << std::endl << std::flush;
 
             for (std::size_t i = 0; i != nl; ++i)
             {
