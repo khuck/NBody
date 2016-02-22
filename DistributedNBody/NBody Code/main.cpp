@@ -11,13 +11,24 @@
 #include <boost/shared_array.hpp>
 #include <stack>
 ///////////////////////////////////////////////////////////////////////////////
-int n=1000000;
+/*
+ * Parameters used in NBody Code that should be changed for purposes:
+ *
+ * n = number of particles
+ * nt = number of iterations
+ * SIZE = 15 * ( n / (number of localities) )
+ */
+//int n=1000000;
+int n=10000;
 int th=100;
-int nt=100;
-int t=1;     
+//int nt=100;
+int nt=10;
+int t=1;
 double G=6.673*pow(10.0,-11.0);
 double theta=0.3;
-std::size_t SIZE=150000;
+//std::size_t SIZE=150000;
+int localities=2;
+std::size_t SIZE=15 * (n/localities);
 int k_th=500;
 
 char const* stepper_basename = "/Dist/stepper/";
